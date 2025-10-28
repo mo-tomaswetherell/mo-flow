@@ -30,8 +30,14 @@ class UKCPDataset(torch.utils.data.Dataset):
 
         self.variables = self.predictors + self.targets + self.source
 
-        ds = xr.open_dataset(data_path)
-        self.ds = ds.load()
+        self.ds = xr.open_dataset(
+            data_path,
+            chunks={
+                "time": 1,
+                "grid_latitude": 64,
+                "grid_longitude": 64,
+            },
+        )
 
         self.length = self.ds.dims["time"]
 
@@ -53,7 +59,7 @@ class UKCPDataset(torch.utils.data.Dataset):
                 variables, shape (no. coupled variables, 64, 64). Otherwise, returns an empty,
                 placeholder tensor of the same shape as targets.
         """
-        sample = self.ds[self.variables].isel(time=idx)
+        sample = self.ds[self.variables].isel(time=idx).load()
 
         predictors = self._get_group_tensor(sample, self.predictors, "predictors")
         targets = self._get_group_tensor(sample, self.targets, "targets")
