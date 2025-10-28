@@ -1,0 +1,13 @@
+name: flow
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - torch==2.8.0
+      - xarray
+      - einops
+      - numpy
+      - netCDF4
+      - dask

@@ -1,0 +1,18 @@
+[tool.flit.module]
+name = "flow"
+
+[build-system]
+requires = ["flit-core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "flow"
+dynamic = ["version", "description"]
+
+dependencies = [
+    "ruff",
+    "pre-commit",
+]
+
+[tool.ruff]
+line-length = 100
