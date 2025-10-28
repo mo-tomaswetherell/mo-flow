@@ -11,3 +11,4 @@ dependencies:
       - numpy
       - netCDF4
       - dask
+      - mlflow
