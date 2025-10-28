@@ -1,0 +1,81 @@
+predictors:
+  temp250:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  temp500:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  temp700:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  temp850:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  spechum250:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  spechum500:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  spechum700:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  spechum850:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  vorticity250:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  vorticity500:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  vorticity700:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  vorticity850:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+  psl:
+    transforms:
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+
+targets:
+  pr_8_8km:
+    transforms:
+      - name: log1p
+      - name: normalisation
+        dims: ["time", "grid_latitude", "grid_longitude"]
+
+scheduler:
+  type: condot
+
+source:
+  type: gaussian
+  mean: 0.0
+  std: 1.0
+
+training:
+  epochs: 10
+  batch_size: 96
+
+model:
+  img_resolution: 64
+  model_channels: 192
+  channel_mult: [1, 2, 3, 4]
+  channel_mult_emb: 4
+  num_residual_blocks: 3
+  attention_resolutions: [16, 8]
+  dropout: 0.1
